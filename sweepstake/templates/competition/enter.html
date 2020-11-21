@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Enter Sweepstake{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post", novalidate>
+        {{ form.hidden_tag() }}
+        {% for match in match_fields %}
+            {% for field in match %}
+                {{ form[field].label }}
+                {% for error in form[field].errors %}
+                    <span style="color: red;"><i>{{ error }}</i></span>
+                {% endfor %}
+                {{ form[field]() }}
+            {% endfor %}
+            <hr style="width: 100%">
+        {% endfor %}
+        {{ form.submit() }}
+    </form>
+{% endblock %}

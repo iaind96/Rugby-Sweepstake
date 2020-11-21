@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Create New Match{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post", novalidate>
+        {{ form.hidden_tag() }}
+        {{ form.team_a.label }}
+        {% for error in form.team_a.errors %}
+        <span style="color: red;"><i>{{ error }}</i></span>
+        {% endfor %}
+        {{ form.team_a(size=32) }}
+
+        {{ form.team_b.label }}
+        {% for error in form.team_b.errors %}
+        <span style="color: red;"><i>{{ error }}</i></span>
+        {% endfor %}
+        {{ form.team_b(size=32) }}
+
+        {{ form.date.label }}
+        {% for error in form.date.errors %}
+        <span style="color: red;"><i>{{ error }}</i></span>
+        {% endfor %}
+        {{ form.date() }}
+
+        {{ form.time.label }}
+        {% for error in form.time.errors %}
+        <span style="color: red;"><i>{{ error }}</i></span>
+        {% endfor %}
+        {{ form.time() }}
+
+        {{ form.venue.label }}
+        {% for error in form.venue.errors %}
+        <span style="color: red;"><i>{{ error }}</i></span>
+        {% endfor %}
+        {{ form.venue() }}
+
+        {{ form.submit() }}
+  </form>
+{% endblock %}

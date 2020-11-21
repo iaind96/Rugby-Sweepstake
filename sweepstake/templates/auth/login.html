@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Log In{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post", novalidate>
+    {{ form.hidden_tag() }}
+    {{ form.username.label }}
+    {% for error in form.username.errors %}
+    <span style="color: red;"><i>{{ error }}</i></span>
+    {% endfor %}
+    {{ form.username(size=32) }}
+
+    {{ form.password.label }}
+    {% for error in form.password.errors %}
+    <span style="color: red;"><i>{{ error }}</i></span>
+    {% endfor %}
+    {{ form.password(size=32) }}
+    <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}{{ user.username }}{% endblock %}</h1>
+    {% if current_user == user%}
+        <a class="action" href="{{ url_for('user.update_info') }}">Update Info</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if user.bio %}
+        <p>{{ user.bio }}</p>
+        <hr>
+    {% endif %}
+    <h1>Predictions</h1>
+    <ul>
+        {% for prediction in predictions %}
+        <li>
+            <a class="action" href="{{ url_for('competition.match', id=prediction.match.id) }}">{{ prediction.match }}</a>
+            : {{ prediction }}
+        {% endfor %}
+    </ul>
+{% endblock %}

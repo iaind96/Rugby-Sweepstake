@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Update Info{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post", novalidate>
+    {{ form.hidden_tag() }}
+    {{ form.username.label }}
+    {% for error in form.username.errors %}
+    <span style="color: red;"><i>{{ error }}</i></span>
+    {% endfor %}
+    {{ form.username(size=32) }}
+
+    {{ form.email.label }}
+    {% for error in form.email.errors %}
+    <span style="color: red;"><i>{{ error }}</i></span>
+    {% endfor %}
+    {{ form.email(size=32) }}
+
+    {{ form.bio.label }}
+    {% for error in form.bio.errors %}
+    <span style="color: red;"><i>{{ error }}</i></span>
+    {% endfor %}
+    {{ form.bio(size=32) }}
+
+    <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}
