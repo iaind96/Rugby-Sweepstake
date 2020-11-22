@@ -10,8 +10,15 @@
 {% block content %}
     <ul>
         {% for match in matches %}
-            <li><a class="action", href="{{ url_for('competition.match', id=match.id) }}">{{ match }}</a>
+            <li><a class="action" href="{{ url_for('competition.match', id=match.id) }}">{{ match }}</a>
         {% endfor %}
     </ul>
     <h1>Standings</h1>
+    <ul>
+        {% for user in users %}
+            <li>
+                <a class="action" href="{{ url_for('user.user', username=user.username) }}">{{ user.username }}</a>
+                : {{ user.get_score() }}
+        {% endfor %}
+    </ul>
 {% endblock %}

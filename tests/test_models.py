@@ -13,6 +13,36 @@ class TestUser:
         assert user.check_password("password")
         assert not user.check_password("wrongpassword")
 
+    def test_get_score(self, monkeypatch):
+        def fake_calculate_score_1():
+            return 5
+
+        def fake_calculate_score_2():
+            return 10
+
+        def fake_calculate_score_3():
+            return None
+
+        user = User()
+        prediction_1 = Prediction(user=user)
+        monkeypatch.setattr(prediction_1, "calculate_score", fake_calculate_score_1)
+        prediction_2 = Prediction(user=user)
+        monkeypatch.setattr(prediction_2, "calculate_score", fake_calculate_score_2)
+        prediction_3 = Prediction(user=user)
+        monkeypatch.setattr(prediction_3, "calculate_score", fake_calculate_score_3)
+
+        assert user.get_score() == 15
+
+    def test_get_score_no_results(self, monkeypatch):
+        def fake_calculate_score_1():
+            return None
+
+        user = User()
+        prediction_1 = Prediction(user=user)
+        monkeypatch.setattr(prediction_1, "calculate_score", fake_calculate_score_1)
+
+        assert user.get_score() == 0
+
 
 class TestMatch:
 

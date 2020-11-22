@@ -44,6 +44,7 @@ def test_update_info_form_validation(app, username, email):
         form.email.data = email
         assert not form.validate()
 
+
 @pytest.mark.parametrize(("team_a", "team_b"), (
         ("", "test b"),
         ("test a", ""),

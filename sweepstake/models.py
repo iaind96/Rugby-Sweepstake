@@ -21,6 +21,10 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def get_score(self):
+        scores = [prediction.calculate_score() for prediction in self.predictions]
+        return sum(filter(None, scores))
+
     def __repr__(self):
         return f"<User {self.username}>"
 

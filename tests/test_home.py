@@ -29,3 +29,8 @@ class TestHome:
         user.login()
         response = client.get("/")
         assert b'href="/competition/create"' in response.data
+
+        user.enter_competition()
+        response = client.get("/")
+        assert b'href="/user/test"' in response.data
+        assert b': 0' in response.data
