@@ -49,6 +49,8 @@ def match(id):
 @bp.route("/enter", methods=("GET", "POST"))
 @login_required
 def enter():
+    #TODO: improve form rendering
+
     if current_user.has_entered:
         return redirect(url_for("index"))
 

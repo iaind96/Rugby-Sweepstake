@@ -11,6 +11,7 @@ bp = Blueprint("user", __name__, url_prefix="/user")
 
 @bp.route("/<username>")
 def user(username):
+    #TODO: display user score
     user = User.query.filter_by(username=username).first_or_404()
     predictions = user.predictions
     return render_template("user/user.html", user=user, predictions=predictions)

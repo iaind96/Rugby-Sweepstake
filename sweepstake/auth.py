@@ -7,6 +7,8 @@ from sweepstake.models import User
 from sweepstake.forms import LoginForm, RegisterForm
 
 
+#TODO: implement admin user features
+
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 

@@ -3,6 +3,8 @@ from wtforms import StringField, PasswordField, TextAreaField, IntegerField, Sub
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
+#TODO: implement a match update form
+
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])

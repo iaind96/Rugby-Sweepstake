@@ -34,3 +34,4 @@ class TestHome:
         response = client.get("/")
         assert b'href="/user/test"' in response.data
         assert b': 0' in response.data
+        assert b'href="/user/other"' not in response.data
