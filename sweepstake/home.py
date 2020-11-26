@@ -10,10 +10,9 @@ bp = Blueprint("home", __name__)
 def home():
     #TODO: rank users by score
     #TODO: add links to update each match with scores
-    matches = Match.query.all()
     users = User.query.filter_by(has_entered=True).all()
 
     scores = [(user, user.get_score()) for user in users]
     scores = sorted(scores, key=lambda x: x[1])
 
-    return render_template("home/home.html", matches=matches, scores=scores)
+    return render_template("home/home.html", scores=scores)

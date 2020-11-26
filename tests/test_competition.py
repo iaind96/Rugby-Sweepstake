@@ -87,10 +87,28 @@ class TestEnter:
 
 class TestMatch:
 
-    def test_match_render(self, client):
+    def test_match_render(self, client, user):
         response = client.get("/competition/1")
         assert response.status_code == 200
         assert b'other' in response.data
         assert b'href="/user/other"' in response.data
         assert b'10 - 20' in response.data
         assert b'14:00, Jan 01 2020 at test venue' in response.data
+
+        user.login()
+        response = client.get("/competition/1")
+        assert b'href="/competition/update/1"' in response.data
+
+
+class TestMatchList:
+
+    def test_match_list_render(self, client, user):
+        response = client.get("/competition/match_list")
+        assert response.status_code == 200
+        assert b'href="/competition/1"' in response.data
+        assert b"Team A - Team B" in response.data
+
+        user.login()
+        response = client.get("/competition/match_list")
+        assert b'href="/competition/create"' in response.data
+        assert b'href="/competition/update/1"' in response.data

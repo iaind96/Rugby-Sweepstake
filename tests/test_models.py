@@ -46,12 +46,12 @@ class TestUser:
 
 class TestMatch:
 
-    def test_get_details(self):
+    def test_print_details(self):
         match = Match(date=dt.datetime(2020, 1, 1, 14, 0), venue="test venue")
-        assert match.get_details() == "14:00, Jan 01 2020 at test venue"
+        assert match.print_details() == "14:00, Jan 01 2020 at test venue"
 
         match = Match()
-        assert match.get_details() is None
+        assert match.print_details() is None
 
     @pytest.mark.parametrize(("team_a", "team_b", "id"), (
             ("abc", "def", "abc_def"),
@@ -91,6 +91,14 @@ class TestMatch:
     def test_has_result(self, team_a_score, team_b_score, result):
         match = Match(team_a_score=team_a_score, team_b_score=team_b_score)
         assert match.has_result() is result
+
+    @pytest.mark.parametrize(("team_a_score", "team_b_score", "result"), (
+            (None, None, "No result"),
+            (10, 10, "10-10")
+    ))
+    def test_print_score(self, team_a_score, team_b_score, result):
+        match = Match(team_a_score=team_b_score, team_b_score=team_b_score)
+        assert match.print_score() == result
 
 
 class TestPrediction:

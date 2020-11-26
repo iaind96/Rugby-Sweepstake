@@ -10,13 +10,13 @@
 {% block content %}
     {% if user.bio %}
         <p>{{ user.bio }}</p>
-        <hr>
     {% endif %}
     <h1>Predictions</h1>
     <table>
         <tr>
             <th>Match</th>
             <th>Prediction</th>
+            <th>Score</th>
             <th>Points</th>
         </tr>
         {% for prediction in predictions %}
@@ -24,7 +24,14 @@
             <td><a class="action" href="{{ url_for('competition.match', id=prediction.match.id) }}">{{ prediction.match }}</a></td>
             <td>{{ prediction }}</td>
             <td>
-                {% if prediction.calculate_score() %}
+                {% if prediction.match.has_result() %}
+                    {{ prediction.match.print_score() }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td>
+                {% if prediction.calculate_score() is not none %}
                     {{ prediction.calculate_score() }}
                 {% else %}
                     -

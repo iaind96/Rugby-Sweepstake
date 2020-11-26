@@ -43,10 +43,15 @@ class Match(db.Model):
     def __str__(self):
         return f"{self.team_a} - {self.team_b}"
 
-    def get_details(self):
+    def print_details(self):
         if self.date is None or self.venue is None:
             return None
-        return f"{self.date.hour:d}:{self.date.minute:02d}, {self.date.strftime('%b %d %Y')} at {self.venue}"
+        return f"{self.print_date()} at {self.venue}"
+
+    def print_date(self):
+        if self.date is None:
+            return None
+        return f"{self.date.hour:d}:{self.date.minute:02d}, {self.date.strftime('%b %d %Y')}"
 
     def check_exists(self):
         matches = Match.query.all()
@@ -73,6 +78,12 @@ class Match(db.Model):
             return True
         else:
             return False
+
+    def print_score(self):
+        if not self.has_result():
+            return "No result"
+
+        return f"{self.team_a_score}-{self.team_b_score}"
 
     def __repr__(self):
         return f"<Match {self.team_a} vs {self.team_b}>"

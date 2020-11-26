@@ -61,6 +61,12 @@ def update(id):
     return render_template("competition/update.html", match=match, form=form)
 
 
+@bp.route("/match_list")
+def match_list():
+    matches = Match.query.all()
+    return render_template("competition/match_list.html", matches=matches)
+
+
 @bp.route("/<int:id>")
 def match(id):
     match = Match.query.filter_by(id=id).first_or_404()
