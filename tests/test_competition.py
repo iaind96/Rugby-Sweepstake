@@ -38,6 +38,30 @@ class TestCreate:
         assert b"Match Team A vs Team B is already in the database" in response.data
 
 
+class TestUpdate:
+
+    def test_update_render(self, client, user):
+        user.login()
+        response = client.get("/competition/update/1")
+        assert response.status_code == 200
+        assert b"Team A - Team B" in response.data
+        assert b"Team A score" in response.data
+        assert b"Team B score" in response.data
+
+    def test_update_functionality(self, client, user, app):
+        user.login()
+        response = client.post("/competition/update/1", data={
+            "team_a_score": 10,
+            "team_b_score": 5
+        })
+        assert "http://localhost/" == response.headers["Location"]
+
+        with app.app_context():
+            match = Match.query.filter_by(id=1).first()
+            assert match.team_a_score == 10
+            assert match.team_b_score == 5
+
+
 class TestEnter:
 
     def test_enter_render(self, client, user):

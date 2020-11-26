@@ -39,6 +39,28 @@ def create():
     return render_template("competition/create.html", form=form)
 
 
+@bp.route("/update/<int:id>", methods=("GET", "POST"))
+@login_required
+def update(id):
+    match = Match.query.filter_by(id=id).first_or_404()
+
+    class UpdateMatchForm(FlaskForm):
+        team_a_score = IntegerField(f"{match.team_a} score", validators=[InputRequired()])
+        team_b_score = IntegerField(f"{match.team_b} score", validators=[InputRequired()])
+        submit = SubmitField("Enter Scores")
+
+    form = UpdateMatchForm()
+
+    if form.validate_on_submit():
+        match.team_a_score = form.team_a_score.data
+        match.team_b_score = form.team_b_score.data
+        db.session.commit()
+
+        return redirect(url_for("index"))
+
+    return render_template("competition/update.html", match=match, form=form)
+
+
 @bp.route("/<int:id>")
 def match(id):
     match = Match.query.filter_by(id=id).first_or_404()

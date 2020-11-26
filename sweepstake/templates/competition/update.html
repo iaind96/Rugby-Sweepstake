@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{ match }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post", novalidate>
+        {{ form.hidden_tag() }}
+
+        {{ form.team_a_score.label }}
+        {% for error in form.team_a_score.errors %}
+            <span style="color: red;"><i>{{ error }}</i></span>
+        {% endfor %}
+        {{ form.team_a_score }}
+
+        {{ form.team_b_score.label }}
+        {% for error in form.team_b_score.errors %}
+            <span style="color: red;"><i>{{ error }}</i></span>
+        {% endfor %}
+        {{ form.team_b_score }}
+
+        {{ form.submit() }}
+    </form>
+{% endblock %}

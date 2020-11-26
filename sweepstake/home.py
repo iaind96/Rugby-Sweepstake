@@ -12,4 +12,8 @@ def home():
     #TODO: add links to update each match with scores
     matches = Match.query.all()
     users = User.query.filter_by(has_entered=True).all()
-    return render_template("home/home.html", matches=matches, users=users)
+
+    scores = [(user, user.get_score()) for user in users]
+    scores = sorted(scores, key=lambda x: x[1])
+
+    return render_template("home/home.html", matches=matches, scores=scores)

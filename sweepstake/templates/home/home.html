@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 
+{% block title %}Home{% endblock %}
+
 {% block header %}
-    <h1>{% block title %}Matches{% endblock %}</h1>
+    <h1>Matches</h1>
     {% if current_user.is_authenticated%}
         <a class="action" href="{{ url_for('competition.create') }}">Add Match</a>
     {% endif %}
 {% endblock %}
 
 {% block content %}
+<!--    {% for match in matches %}-->
+<!--        <article class="match">-->
+<!--            <h1><a class="action" href="{{ url_for('competition.match', id=match.id) }}">{{ match }}</a></h1>-->
+<!--        </article>-->
+<!--    {% endfor %}-->
     <ul>
         {% for match in matches %}
             <li><a class="action" href="{{ url_for('competition.match', id=match.id) }}">{{ match }}</a>
@@ -19,11 +26,48 @@
             <th>Player</th>
             <th>Points</th>
         </tr>
-        {% for user in users %}
+        {% for score in scores %}
         <tr>
-            <td><a class="action" href="{{ url_for('user.user', username=user.username) }}">{{ user.username }}</a></td>
-            <td>{{ user.get_score() }}</td>
+            <td><a class="action" href="{{ url_for('user.user', username=score[0].username) }}">{{ score[0].username }}</a></td>
+            <td>{{ score[1] }}</td>
         </tr>
         {% endfor %}
     </table>
+    <canvas id="standings_plot" width="400" height="400"></canvas>
+    <script>
+
+        var data = {
+            labels: [{% for score in scores %}
+                     "{{ score[0].username }}",
+                     {% endfor %}],
+            datasets: [{
+                label: 'Points',
+                data: [{% for score in scores %}
+                       {{ score[1] }},
+                       {% endfor %}],
+                backgroundColor: 'rgba(55, 123, 168, 0.2)',
+                borderColor: 'rgba(55, 123, 168, 1)',
+                borderWidth: 1
+            }]
+        }
+
+        var options = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+             },
+             responsive: false
+        }
+
+        var ctx = document.getElementById('standings_plot').getContext("2d");
+
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: data,
+            options: options,
+        });
+    </script>
 {% endblock %}
