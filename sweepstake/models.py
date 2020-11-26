@@ -25,6 +25,13 @@ class User(UserMixin, db.Model):
         scores = [prediction.calculate_score() for prediction in self.predictions]
         return sum(filter(None, scores))
 
+    def print_score(self):
+        score = self.get_score()
+        if score is None:
+            return "-"
+        else:
+            return score
+
     def __repr__(self):
         return f"<User {self.username}>"
 
@@ -50,7 +57,7 @@ class Match(db.Model):
 
     def print_date(self):
         if self.date is None:
-            return None
+            return "-"
         return f"{self.date.hour:d}:{self.date.minute:02d}, {self.date.strftime('%b %d %Y')}"
 
     def check_exists(self):
@@ -81,7 +88,7 @@ class Match(db.Model):
 
     def print_score(self):
         if not self.has_result():
-            return "No result"
+            return "-"
 
         return f"{self.team_a_score}-{self.team_b_score}"
 
@@ -151,6 +158,13 @@ class Prediction(db.Model):
             return "team_b"
         else:
             return "tie"
+
+    def print_score(self):
+        score = self.calculate_score()
+        if score is None:
+            return "-"
+        else:
+            return score
 
     def __repr__(self):
         return f"<Prediction match: {self.match} by user: {self.user}>"

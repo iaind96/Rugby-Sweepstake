@@ -93,7 +93,7 @@ class TestMatch:
         assert match.has_result() is result
 
     @pytest.mark.parametrize(("team_a_score", "team_b_score", "result"), (
-            (None, None, "No result"),
+            (None, None, "-"),
             (10, 10, "10-10")
     ))
     def test_print_score(self, team_a_score, team_b_score, result):

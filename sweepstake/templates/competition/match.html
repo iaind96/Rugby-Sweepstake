@@ -31,12 +31,7 @@
         <tr>
             <td><a class="action" href="{{ url_for('user.user', username=prediction.user.username) }}">{{ prediction.user.username }}</a></td>
             <td>{{ prediction }}</td>
-            <td>
-                {% if prediction.calculate_score() is not none %}
-                    {{ prediction.calculate_score() }}
-                {% else %}
-                    -
-                {% endif %}
+            <td>{{ prediction.print_score() }}
             </td>
         </tr>
         {% endfor %}

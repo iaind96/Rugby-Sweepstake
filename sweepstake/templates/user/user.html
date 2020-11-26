@@ -23,20 +23,8 @@
         <tr>
             <td><a class="action" href="{{ url_for('competition.match', id=prediction.match.id) }}">{{ prediction.match }}</a></td>
             <td>{{ prediction }}</td>
-            <td>
-                {% if prediction.match.has_result() %}
-                    {{ prediction.match.print_score() }}
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-            <td>
-                {% if prediction.calculate_score() is not none %}
-                    {{ prediction.calculate_score() }}
-                {% else %}
-                    -
-                {% endif %}
-            </td>
+            <td>{{ prediction.match.print_score() }}</td>
+            <td>{{ prediction.print_score() }}</td>
         </tr>
         {% endfor %}
     </table>
