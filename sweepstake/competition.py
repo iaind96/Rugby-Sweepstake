@@ -77,7 +77,6 @@ def match(id):
 @bp.route("/enter", methods=("GET", "POST"))
 @login_required
 def enter():
-    #TODO: improve form rendering
 
     if current_user.has_entered:
         return redirect(url_for("index"))
@@ -89,9 +88,9 @@ def enter():
     match_fields = []
     for match in matches:
         setattr(EnterCompetitionForm, f"{match.id}_team_a_score",
-                IntegerField(f"{match.team_a} Score", validators=[InputRequired()]))
+                IntegerField(f"{match.team_a}", validators=[InputRequired()]))
         setattr(EnterCompetitionForm, f"{match.id}_team_b_score",
-                IntegerField(f"{match.team_b} Score", validators=[InputRequired()]))
+                IntegerField(f"{match.team_b}", validators=[InputRequired()]))
         match_fields.append((f"{match.id}_team_a_score", f"{match.id}_team_b_score"))
 
     form = EnterCompetitionForm()

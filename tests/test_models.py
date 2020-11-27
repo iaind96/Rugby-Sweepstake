@@ -33,6 +33,10 @@ class TestUser:
 
         assert user.get_score() == 15
 
+    def test_get_score_no_predictions(self):
+        user = User()
+        assert user.get_score() is None
+
     def test_get_score_no_results(self, monkeypatch):
         def fake_calculate_score_1():
             return None
@@ -41,7 +45,7 @@ class TestUser:
         prediction_1 = Prediction(user=user)
         monkeypatch.setattr(prediction_1, "calculate_score", fake_calculate_score_1)
 
-        assert user.get_score() == 0
+        assert user.get_score() is None
 
 
 class TestMatch:

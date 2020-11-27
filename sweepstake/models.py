@@ -23,6 +23,10 @@ class User(UserMixin, db.Model):
 
     def get_score(self):
         scores = [prediction.calculate_score() for prediction in self.predictions]
+
+        if len(scores) == 0 or all(score is None for score in scores):
+            return None
+
         return sum(filter(None, scores))
 
     def print_score(self):

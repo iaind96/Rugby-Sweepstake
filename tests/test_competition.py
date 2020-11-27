@@ -111,4 +111,3 @@ class TestMatchList:
         user.login()
         response = client.get("/competition/match_list")
         assert b'href="/competition/create"' in response.data
-        assert b'href="/competition/update/1"' in response.data

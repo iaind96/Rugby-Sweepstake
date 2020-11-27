@@ -148,3 +148,28 @@ input[type=submit] {
 .content tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+.entry_form {
+    display: flex;
+    justify-content: center;
+}
+
+.entry_form p, label, input {
+    margin: 0.5rem;
+}
+
+.entry_form_child {
+  display: flex;
+  justify-content: center;
+}
+
+.entry_form div:first-child {
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.entry_form div:last-child  {
+    justify-content: flex-start;
+    flex: 1;
+}
+

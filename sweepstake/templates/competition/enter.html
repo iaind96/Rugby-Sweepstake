@@ -8,14 +8,23 @@
     <form method="post", novalidate>
         {{ form.hidden_tag() }}
         {% for match in match_fields %}
-            {% for field in match %}
-                {{ form[field].label }}
-                {% for error in form[field].errors %}
-                    <span style="color: red;"><i>{{ error }}</i></span>
-                {% endfor %}
-                {{ form[field]() }}
-            {% endfor %}
-            <hr style="width: 100%">
+                <div class="entry_form">
+                    <div class="entry_form_child">
+                        {% for error in form[match[0]].errors %}
+                        <span style="color: red;"><i>{{ error }}</i></span>
+                        {% endfor %}
+                        {{ form[match[0]].label }}
+                        {{ form[match[0]](size=10) }}
+                    </div>
+                    <div class="entry_form_child"><p>-</p></div>
+                    <div class="entry_form_child">
+                        {{ form[match[1]](size=10) }}
+                        {{ form[match[1]].label }}
+                        {% for error in form[match[1]].errors %}
+                        <span style="color: red;"><i>{{ error }}</i></span>
+                        {% endfor %}
+                    </div>
+                </div>
         {% endfor %}
         {{ form.submit() }}
     </form>

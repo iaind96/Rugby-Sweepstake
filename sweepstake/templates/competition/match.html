@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
 
 {% block header %}
-        <h1>
-            {% block title %}
-            {% if match.has_result() %}
-                {{ match }} ({{ match.print_score() }})
-            {% else %}
-                {{ match }}
-            {% endif %}
-            {% endblock %}
-        </h1>
-
+    <h1>
+        {% block title %}
+        {% if match.has_result() %}
+            {{ match }} ({{ match.print_score() }})
+        {% else %}
+            {{ match }}
+        {% endif %}
+        {% endblock %}
+    </h1>
     {% if current_user.is_authenticated %}
         <a class="action" href="{{ url_for('competition.update', id=match.id) }}">Update Score</a>
     {% endif %}
