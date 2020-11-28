@@ -45,8 +45,8 @@ class TestUpdate:
         response = client.get("/competition/update/1")
         assert response.status_code == 200
         assert b"Team A - Team B" in response.data
-        assert b"Team A score" in response.data
-        assert b"Team B score" in response.data
+        assert b"Team A" in response.data
+        assert b"Team B" in response.data
 
     def test_update_functionality(self, client, user, app):
         user.login()

@@ -50,12 +50,14 @@ class TestUser:
 
 class TestMatch:
 
-    def test_print_details(self):
-        match = Match(date=dt.datetime(2020, 1, 1, 14, 0), venue="test venue")
-        assert match.print_details() == "14:00, Jan 01 2020 at test venue"
-
-        match = Match()
-        assert match.print_details() is None
+    @pytest.mark.parametrize(("date", "venue", "details"),(
+            (dt.datetime(2020, 1, 1, 14, 0), "test venue", "14:00, Jan 01 2020 at test venue"),
+            (None, None, None),
+            (dt.datetime(2020, 1, 1, 14, 0), None, None)
+    ))
+    def test_print_details(self, date, venue, details):
+        match = Match(date=date, venue=venue)
+        assert match.print_details() == details
 
     @pytest.mark.parametrize(("team_a", "team_b", "id"), (
             ("abc", "def", "abc_def"),

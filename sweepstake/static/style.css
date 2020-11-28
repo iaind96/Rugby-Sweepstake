@@ -154,7 +154,7 @@ input[type=submit] {
     justify-content: center;
 }
 
-.entry_form p, label, input {
+.entry_form p, label, input, span {
     margin: 0.5rem;
 }
 

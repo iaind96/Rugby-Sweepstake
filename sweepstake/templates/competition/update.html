@@ -7,19 +7,23 @@
 {% block content %}
     <form method="post", novalidate>
         {{ form.hidden_tag() }}
-
-        {{ form.team_a_score.label }}
-        {% for error in form.team_a_score.errors %}
-            <span style="color: red;"><i>{{ error }}</i></span>
-        {% endfor %}
-        {{ form.team_a_score }}
-
-        {{ form.team_b_score.label }}
-        {% for error in form.team_b_score.errors %}
-            <span style="color: red;"><i>{{ error }}</i></span>
-        {% endfor %}
-        {{ form.team_b_score }}
-
+        <div class="entry_form">
+            <div class="entry_form_child">
+                {% for error in form.team_a_score.errors %}
+                <span style="color: red;"><i>{{ error }}</i></span>
+                {% endfor %}
+                {{ form.team_a_score.label }}
+                {{ form.team_a_score(size=10) }}
+            </div>
+            <div class="entry_form_child"><p>-</p></div>
+            <div class="entry_form_child">
+                {{ form.team_b_score(size=10) }}
+                {{ form.team_b_score.label }}
+                {% for error in form.team_b_score.errors %}
+                <span style="color: red;"><i>{{ error }}</i></span>
+                {% endfor %}
+            </div>
+        </div>
         {{ form.submit() }}
     </form>
 {% endblock %}

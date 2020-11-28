@@ -45,8 +45,8 @@ def update(id):
     match = Match.query.filter_by(id=id).first_or_404()
 
     class UpdateMatchForm(FlaskForm):
-        team_a_score = IntegerField(f"{match.team_a} score", validators=[InputRequired()])
-        team_b_score = IntegerField(f"{match.team_b} score", validators=[InputRequired()])
+        team_a_score = IntegerField(f"{match.team_a}", validators=[InputRequired()])
+        team_b_score = IntegerField(f"{match.team_b}", validators=[InputRequired()])
         submit = SubmitField("Enter Scores")
 
     form = UpdateMatchForm()
